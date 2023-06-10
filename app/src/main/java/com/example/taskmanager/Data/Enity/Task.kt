@@ -11,5 +11,5 @@ data class Task(
     val description: String,
     val isSuccess: Boolean,
     val isSelected: Boolean,
-    val mainTask: UUID?
+    val mainTaskId: UUID?
 )
