@@ -8,8 +8,8 @@ import java.util.UUID
 data class Task(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
-    val description: String,
-    val isSuccess: Boolean,
-    val isSelected: Boolean,
-    val mainTaskId: UUID?
+    var description: String,
+    var isSuccess: Boolean,
+    var isSelected: Boolean,
+    var mainTaskId: UUID?
 )

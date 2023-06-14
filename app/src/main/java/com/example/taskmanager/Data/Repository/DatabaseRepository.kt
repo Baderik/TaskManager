@@ -23,7 +23,7 @@ class DatabaseRepository private constructor(context: Context):Repository{
 
     override fun getAllTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
 
-    override fun getTask(id: UUID) = taskDao.getTask(id = id)
+    override fun getTask(id: UUID): LiveData<Task> = taskDao.getTask(id = id)
 
     override fun getSelectedTasks():LiveData<List<Task>> = taskDao.getSelectedTasks()
 
@@ -42,7 +42,7 @@ class DatabaseRepository private constructor(context: Context):Repository{
             taskDao.noteSubtasksAsCompiled(task.id)
     }
 
-    override suspend fun add(task: Task){
+    override suspend fun addTask(task: Task){
         taskDao.addTask(task)
     }
 

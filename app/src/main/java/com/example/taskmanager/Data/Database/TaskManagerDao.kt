@@ -25,7 +25,7 @@ interface TaskManagerDao {
     fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * FROM Task WHERE id=(:id)")
-    fun getTask(id:UUID)
+    fun getTask(id:UUID): LiveData<Task>
 
     @Query("SELECT * FROM Task WHERE mainTaskId=(:mainTaskId)")
     fun getSubtask(mainTaskId:UUID): LiveData<Task?>

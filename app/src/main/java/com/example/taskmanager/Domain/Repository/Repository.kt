@@ -7,7 +7,7 @@ import java.util.UUID
 interface Repository {
     fun getAllTasks(): LiveData<List<Task>>
 
-    fun getTask(id: UUID)
+    fun getTask(id: UUID): LiveData<Task>
 
     fun getSelectedTasks():LiveData<List<Task>>
 
@@ -19,5 +19,5 @@ interface Repository {
 
     suspend fun updateTask(task: Task)
 
-    suspend fun add(task: Task)
+    suspend fun addTask(task: Task)
 }
