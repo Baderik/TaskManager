@@ -31,11 +31,11 @@ class ListFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when(requireArguments().getInt(KEY_PAGE)){
-            0 -> binding.enterText.text = "Избранные"
-            1 -> binding.enterText.text = "Все задачи"
-            2 -> binding.enterText.text = "Выполненные"
-        }
+//        when(requireArguments().getInt(KEY_PAGE)){
+//            0 -> binding.enterText.text = "Избранные"
+//            1 -> binding.enterText.text = "Все задачи"
+//            2 -> binding.enterText.text = "Выполненные"
+//        }
     }
 
     override fun onDetach() {
