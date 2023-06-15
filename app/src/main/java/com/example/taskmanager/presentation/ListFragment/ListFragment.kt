@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.databinding.FragmentMainBinding
 import com.example.taskmanager.databinding.FragmentListBinding
 import com.example.taskmanager.presentation.MainFragment.MainFragmentViewModel
+import java.util.UUID
 
 
-class ListFragment:Fragment() {
+class ListFragment:Fragment(), TaskListener {
 
 
     private var _binding: FragmentListBinding? = null
@@ -22,7 +24,7 @@ class ListFragment:Fragment() {
         ViewModelProvider(this)[ListFragmentViewModel::class.java]
     }
 
-    private val adapter = TaskAdapter()
+    private val adapter = TaskAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,5 +70,21 @@ class ListFragment:Fragment() {
                 arguments = arg
             }
         }
+    }
+
+    override fun onClick(taskId: UUID) {
+
+    }
+
+    override fun onSelectedPress(task: Task) {
+        listFragmentViewModel.isSelectedButton(task)
+    }
+
+    override fun onSuccessPress(task: Task) {
+        listFragmentViewModel.isSuccessButton(task)
+    }
+
+    override fun onDeletePress(task: Task) {
+        listFragmentViewModel.isDeleteButton(task)
     }
 }

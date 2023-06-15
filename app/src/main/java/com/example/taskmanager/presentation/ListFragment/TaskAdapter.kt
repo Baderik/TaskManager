@@ -10,7 +10,7 @@ import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.ItemTaskBinding
 
-class TaskAdapter: RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
+class TaskAdapter(private val hostListener: TaskListener): RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
 
     private var tasks: MutableList<Task> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
@@ -32,8 +32,27 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
             binding.apply {
                 title.text = task.title
                 description.text = task.description
+                isSuccessCheckBox.isChecked = task.isSuccess
+                val imageRes = if (task.isSelected) R.drawable.baseline_star_24 else R.drawable.baseline_star_border_24
+                isSelectedButton.setImageResource(imageRes)
                 if (task.description.isBlank())
                     description.visibility = View.GONE
+
+
+                isSelectedButton.setOnClickListener{
+                    hostListener.onSelectedPress(task)
+                }
+
+
+                isSuccessCheckBox.setOnClickListener{
+                    task.isSuccess = !task.isSuccess
+                    hostListener.onSuccessPress(task)
+                }
+
+                deleteButton.setOnClickListener{
+                    hostListener.onDeletePress(task)
+                }
+
             }
         }
     }

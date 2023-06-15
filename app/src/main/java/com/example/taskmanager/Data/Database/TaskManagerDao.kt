@@ -21,7 +21,7 @@ interface TaskManagerDao {
     @Delete
     suspend fun deleteTask(task: Task)
 
-    @Query("SELECT * FROM Task WHERE mainTaskId IS NULL AND isSelected = 0")
+    @Query("SELECT * FROM Task WHERE mainTaskId IS NULL AND isSuccess = 0")
     fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * FROM Task WHERE id=(:id)")
@@ -33,7 +33,7 @@ interface TaskManagerDao {
     @Query("SELECT * FROM Task WHERE isSuccess = 1 AND mainTaskId IS NULL")
     fun getSuccessTasks(): LiveData<List<Task>>
 
-    @Query("SELECT * FROM Task WHERE isSelected = 1 AND mainTaskId IS NULL")
+    @Query("SELECT * FROM Task WHERE isSelected = 1 AND mainTaskId IS NULL AND isSuccess = 0")
     fun getSelectedTasks(): LiveData<List<Task>>
 
     @Query("UPDATE Task SET isSuccess = 1 WHERE mainTaskId=(:mainTaskId)")
