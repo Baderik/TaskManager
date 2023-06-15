@@ -16,7 +16,7 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 12
+        return 18
     }
 
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
