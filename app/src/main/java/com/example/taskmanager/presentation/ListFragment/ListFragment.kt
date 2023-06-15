@@ -16,6 +16,7 @@ class ListFragment:Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
+    private val adapter = TaskAdapter()
 
 
     override fun onCreateView(
@@ -25,17 +26,19 @@ class ListFragment:Fragment() {
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
+        binding.recyclerView.adapter = adapter
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        when(requireArguments().getInt(KEY_PAGE)){
-//            0 -> binding.enterText.text = "Избранные"
-//            1 -> binding.enterText.text = "Все задачи"
-//            2 -> binding.enterText.text = "Выполненные"
-//        }
+        when(requireArguments().getInt(KEY_PAGE)){
+            0 -> binding.recyclerView.adapter = adapter
+            1 -> binding.recyclerView.adapter = adapter
+            2 -> binding.recyclerView.adapter = adapter
+        }
     }
 
     override fun onDetach() {
