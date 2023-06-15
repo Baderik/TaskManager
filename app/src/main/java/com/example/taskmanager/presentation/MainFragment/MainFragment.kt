@@ -87,6 +87,7 @@ class MainFragment:Fragment() {
             }
         })
 
+
         dialogBinding.saveTaskButton.setOnClickListener {
             val task = Task(
                 title = dialogBinding.titleEditText.text.toString(),

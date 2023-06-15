@@ -31,7 +31,9 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
         fun bind(task: Task){
             binding.apply {
                 title.text = task.title
-                description.text = task.title
+                description.text = task.description
+                if (task.description.isBlank())
+                    description.visibility = View.GONE
             }
         }
     }
