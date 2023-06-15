@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.R
@@ -21,6 +22,10 @@ class MainFragment:Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    val mainFragmentViewModel: MainFragmentViewModel by lazy {
+        ViewModelProvider(this)[MainFragmentViewModel::class.java]
+    }
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var taskCreationDialog: BottomSheetDialog
@@ -91,6 +96,7 @@ class MainFragment:Fragment() {
                 mainTaskId = null
             )
 
+            mainFragmentViewModel.addTaskInDatabase(task)
             taskCreationDialog.dismiss()
         }
         dialogBinding.titleEditText.requestFocus()

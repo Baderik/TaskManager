@@ -36,7 +36,7 @@ interface TaskManagerDao {
     @Query("SELECT * FROM Task WHERE isSelected = 1 AND mainTaskId IS NULL")
     fun getSelectedTasks(): LiveData<List<Task>>
 
-    @Query("UPDATE Task SET isSuccess = 1 WHERE mainTaskId(:mainTaskId)")
+    @Query("UPDATE Task SET isSuccess = 1 WHERE mainTaskId=(:mainTaskId)")
     fun noteSubtasksAsCompiled(mainTaskId: UUID)
 
     @Query("DELETE FROM Task WHERE mainTaskId=(:mainTaskId)")
