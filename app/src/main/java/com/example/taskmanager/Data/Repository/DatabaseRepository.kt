@@ -29,7 +29,7 @@ class DatabaseRepository private constructor(context: Context):Repository{
 
     override fun getSuccessTasks():LiveData<List<Task>> = taskDao.getSuccessTasks()
 
-    override fun getSubtasks(mainTaskId: UUID):LiveData<Task?> = taskDao.getSubtask(mainTaskId = mainTaskId)
+    override fun getSubtasks(mainTaskId: UUID): LiveData<List<Task?>> = taskDao.getSubtasks(mainTaskId = mainTaskId)
 
     override suspend fun removeTask(task: Task){
         taskDao.deleteSubtask(task.id)

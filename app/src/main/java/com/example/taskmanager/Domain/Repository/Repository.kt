@@ -13,7 +13,7 @@ interface Repository {
 
     fun getSuccessTasks():LiveData<List<Task>>
 
-    fun getSubtasks(mainTaskId: UUID):LiveData<Task?>
+    fun getSubtasks(mainTaskId: UUID):LiveData<List<Task?>>
 
     suspend fun removeTask(task: Task)
 

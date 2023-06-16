@@ -6,7 +6,7 @@ import com.example.taskmanager.Domain.Repository.Repository
 import java.util.UUID
 
 class GetDefiniteSubtasksUseCase(private val repository: Repository) {
-    fun execute(mainTaskId: UUID):LiveData<Task?>{
+    fun execute(mainTaskId: UUID):LiveData<List<Task?>>{
         return repository.getSubtasks(mainTaskId)
     }
 }

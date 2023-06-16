@@ -17,10 +17,12 @@ import com.example.taskmanager.R
 import com.example.taskmanager.databinding.BottomSheetAddTaskBinding
 import com.example.taskmanager.databinding.FragmentDetailBinding
 import com.example.taskmanager.databinding.FragmentListBinding
+import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
+import com.example.taskmanager.presentation.ListFragment.TaskAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.UUID
 
-class DetailFragment:Fragment() {
+class DetailFragment:Fragment(), TaskListener {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -28,6 +30,9 @@ class DetailFragment:Fragment() {
         ViewModelProvider(this)[DetailFragmentViewModel::class.java]
     }
     private lateinit var subtaskCreationDialog: BottomSheetDialog
+    private lateinit var taskId: UUID
+
+    private val adapter = TaskAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +41,7 @@ class DetailFragment:Fragment() {
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        val taskId = requireArguments().getSerializable(TASK_ID) as UUID
+        taskId = requireArguments().getSerializable(TASK_ID) as UUID
         detailFragmentViewModel.onCreate(taskId)
 
         subtaskCreationDialog = BottomSheetDialog(requireContext(), R.style.DialogStyle)
@@ -45,6 +50,8 @@ class DetailFragment:Fragment() {
         binding.addSubtaskButton.setOnClickListener{
             subtaskCreationDialog.show()
         }
+
+        binding.recyclerSubtask.adapter = adapter
 
         return binding.root
     }
@@ -55,6 +62,10 @@ class DetailFragment:Fragment() {
 
         detailFragmentViewModel.task.observe(viewLifecycleOwner){
             updateUI(it)
+        }
+
+        detailFragmentViewModel.subtasks.observe(viewLifecycleOwner){
+            adapter.setTasks(it as List<Task>)
         }
 
     }
@@ -79,15 +90,15 @@ class DetailFragment:Fragment() {
             }
         })
 
-
         dialogBinding.saveTaskButton.setOnClickListener {
             val task = Task(
                 title = dialogBinding.titleEditText.text.toString(),
                 description = dialogBinding.descriptionEditText.text.toString(),
                 isSelected = false,
                 isSuccess = false,
-                mainTaskId = null
+                mainTaskId = taskId
             )
+            detailFragmentViewModel.addSubtaskInDatabase(task)
             subtaskCreationDialog.dismiss()
         }
         dialogBinding.titleEditText.requestFocus()
@@ -118,5 +129,21 @@ class DetailFragment:Fragment() {
                 arguments = arg
             }
         }
+    }
+
+    override fun onClick(taskId: UUID) {
+
+    }
+
+    override fun onSelectedPress(task: Task) {
+
+    }
+
+    override fun onSuccessPress(task: Task) {
+
+    }
+
+    override fun onDeletePress(task: Task) {
+
     }
 }
