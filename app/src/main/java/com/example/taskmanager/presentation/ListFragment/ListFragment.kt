@@ -12,7 +12,7 @@ import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.databinding.FragmentListBinding
 import com.example.taskmanager.presentation.DetailFragment.DetailFragment
 import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
-import com.example.taskmanager.presentation.Interfaces.Navigations.FragmentNavigation
+import com.example.taskmanager.presentation.MainActivity
 import java.util.UUID
 
 
@@ -26,11 +26,11 @@ class ListFragment:Fragment(), TaskListener {
         ViewModelProvider(this)[ListFragmentViewModel::class.java]
     }
     private val adapter = TaskAdapter(this)
-    private lateinit var  navigation: FragmentNavigation
+    private lateinit var  hostActivity: MainActivity
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        navigation = context as FragmentNavigation
+        hostActivity = context as MainActivity
     }
 
     override fun onCreateView(
@@ -80,7 +80,7 @@ class ListFragment:Fragment(), TaskListener {
     }
 
     override fun onClick(taskId: UUID) {
-        navigation.navigateForward(DetailFragment.newInstance(taskId))
+        hostActivity.navigateForward(DetailFragment.newInstance(taskId))
     }
 
     override fun onSelectedPress(task: Task) {

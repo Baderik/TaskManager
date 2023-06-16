@@ -31,6 +31,7 @@ class DetailFragment:Fragment(), TaskListener {
     }
     private lateinit var subtaskCreationDialog: BottomSheetDialog
     private lateinit var taskId: UUID
+    private lateinit var task: Task
 
     private val adapter = SubtaskAdapter(this)
 
@@ -61,11 +62,30 @@ class DetailFragment:Fragment(), TaskListener {
         super.onViewCreated(view, savedInstanceState)
 
         detailFragmentViewModel.task.observe(viewLifecycleOwner){
-            updateUI(it)
+            task = it
+            updateUI(task)
         }
 
         detailFragmentViewModel.subtasks.observe(viewLifecycleOwner){
             adapter.setTasks(it as List<Task>)
+        }
+
+        binding.apply {
+            titleEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    task.title = s.toString()
+                }
+            })
+
+            descriptionEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    task.description = s.toString()
+                }
+            })
         }
 
     }
@@ -111,6 +131,11 @@ class DetailFragment:Fragment(), TaskListener {
         }
 
         subtaskCreationDialog.setContentView(dialogBinding.root)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        detailFragmentViewModel.isSuccessButton(task)
     }
 
     override fun onDetach() {
