@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.ItemTaskBinding
+import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
 
 class TaskAdapter(private val hostListener: TaskListener): RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
 
@@ -39,20 +40,19 @@ class TaskAdapter(private val hostListener: TaskListener): RecyclerView.Adapter<
                     description.visibility = View.GONE
 
 
+                root.setOnClickListener{
+                    hostListener.onClick(task.id)
+                }
                 isSelectedButton.setOnClickListener{
                     hostListener.onSelectedPress(task)
                 }
-
-
                 isSuccessCheckBox.setOnClickListener{
                     task.isSuccess = !task.isSuccess
                     hostListener.onSuccessPress(task)
                 }
-
                 deleteButton.setOnClickListener{
                     hostListener.onDeletePress(task)
                 }
-
             }
         }
     }

@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
 
     override fun navigateForward(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
             .replace(R.id.fragment_container, fragment)
             .commit()
     }

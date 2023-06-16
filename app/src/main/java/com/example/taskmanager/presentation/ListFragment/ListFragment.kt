@@ -1,5 +1,6 @@
 package com.example.taskmanager.presentation.ListFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.databinding.FragmentListBinding
+import com.example.taskmanager.presentation.DetailFragment.DetailFragment
 import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
 import com.example.taskmanager.presentation.Interfaces.Navigations.FragmentNavigation
 import java.util.UUID
@@ -25,6 +27,11 @@ class ListFragment:Fragment(), TaskListener {
     }
     private val adapter = TaskAdapter(this)
     private lateinit var  navigation: FragmentNavigation
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        navigation = context as FragmentNavigation
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +80,7 @@ class ListFragment:Fragment(), TaskListener {
     }
 
     override fun onClick(taskId: UUID) {
-
+        navigation.navigateForward(DetailFragment.newInstance())
     }
 
     override fun onSelectedPress(task: Task) {
