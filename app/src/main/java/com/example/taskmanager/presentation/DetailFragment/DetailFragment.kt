@@ -32,7 +32,7 @@ class DetailFragment:Fragment(), TaskListener {
     private lateinit var subtaskCreationDialog: BottomSheetDialog
     private lateinit var taskId: UUID
 
-    private val adapter = TaskAdapter(this)
+    private val adapter = SubtaskAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,19 +131,12 @@ class DetailFragment:Fragment(), TaskListener {
         }
     }
 
-    override fun onClick(taskId: UUID) {
-
-    }
-
-    override fun onSelectedPress(task: Task) {
-
-    }
 
     override fun onSuccessPress(task: Task) {
-
+        detailFragmentViewModel.isSuccessButton(task)
     }
 
     override fun onDeletePress(task: Task) {
-
+        detailFragmentViewModel.isDeleteButton(task)
     }
 }

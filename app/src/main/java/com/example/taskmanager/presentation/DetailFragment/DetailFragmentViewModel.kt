@@ -17,6 +17,7 @@ import com.example.taskmanager.Domain.UseCases.GetSuccessTasksUseCase
 import com.example.taskmanager.Domain.UseCases.GetTasksUseCase
 import com.example.taskmanager.Domain.UseCases.UpdateSelectedTaskUseCase
 import com.example.taskmanager.Domain.UseCases.UpdateTaskDataUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
 
@@ -26,6 +27,9 @@ class DetailFragmentViewModel:ViewModel() {
     private val getDefiniteTask = GetDefiniteTaskUseCase(repository)
     private val addSubtask = AddTaskUseCase(repository)
     private val getSubtasks = GetDefiniteSubtasksUseCase(repository)
+    private val deleteTask = DeleteTaskUseCase(repository)
+    private val updateSuccessTask = UpdateTaskDataUseCase(repository)
+
 
     private val taskId = MutableLiveData<UUID>()
     val task: LiveData<Task> = Transformations.switchMap(taskId){ it->
@@ -43,4 +47,17 @@ class DetailFragmentViewModel:ViewModel() {
             addSubtask.execute(task)
         }
     }
+
+    fun isSuccessButton(task: Task) {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateSuccessTask.execute(task)
+        }
+    }
+
+    fun isDeleteButton(task: Task) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteTask.execute(task)
+        }
+    }
+
 }
