@@ -80,7 +80,7 @@ class ListFragment:Fragment(), TaskListener {
     }
 
     override fun onClick(taskId: UUID) {
-        navigation.navigateForward(DetailFragment.newInstance())
+        navigation.navigateForward(DetailFragment.newInstance(taskId))
     }
 
     override fun onSelectedPress(task: Task) {
