@@ -8,9 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.taskmanager.Data.Enity.Task
-import com.example.taskmanager.databinding.FragmentMainBinding
 import com.example.taskmanager.databinding.FragmentListBinding
-import com.example.taskmanager.presentation.MainFragment.MainFragmentViewModel
+import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
 import java.util.UUID
 
 
