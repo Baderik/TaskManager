@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.taskmanager.Data.Enity.Task
 import com.example.taskmanager.databinding.FragmentListBinding
 import com.example.taskmanager.presentation.Interfaces.Listeners.TaskListener
+import com.example.taskmanager.presentation.Interfaces.Navigations.FragmentNavigation
 import java.util.UUID
 
 
@@ -19,11 +20,11 @@ class ListFragment:Fragment(), TaskListener {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    val listFragmentViewModel: ListFragmentViewModel by lazy {
+    private val listFragmentViewModel: ListFragmentViewModel by lazy {
         ViewModelProvider(this)[ListFragmentViewModel::class.java]
     }
-
     private val adapter = TaskAdapter(this)
+    private lateinit var  navigation: FragmentNavigation
 
     override fun onCreateView(
         inflater: LayoutInflater,
